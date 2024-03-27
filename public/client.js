@@ -1,7 +1,5 @@
-import * as THREE from 'three'
-import { OrbitControls } from './jsm/controls/OrbitControls.js'
-import Stats from './jsm/libs/stats.module.js'
-import { GUI } from './jsm/libs/lil-gui.module.min.js'
+import * as THREE from 'three';
+import { OrbitControls } from './jsm/controls/OrbitControls.js';
 
 // Set up the scene
 const scene = new THREE.Scene();
@@ -69,6 +67,49 @@ function animate() {
     renderer.render(scene, camera);
 }
 animate();
+
+// Function to toggle full screen
+function toggleFullScreen() {
+    const canvas = renderer.domElement;
+    if (!document.fullscreenElement) {
+        if (canvas.requestFullscreen) {
+            canvas.requestFullscreen();
+        } else if (canvas.webkitRequestFullscreen) { /* Safari */
+            canvas.webkitRequestFullscreen();
+        } else if (canvas.msRequestFullscreen) { /* IE11 */
+            canvas.msRequestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+        }
+    }
+}
+
+// Function to handle full screen change event
+function fullScreenChangeHandler() {
+    const isFullScreen = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+    if (isFullScreen) {
+        // Adjust camera aspect ratio on entering full screen
+        const aspect = window.innerWidth / window.innerHeight;
+        camera.aspect = aspect;
+        camera.updateProjectionMatrix();
+    }
+}
+
+// Event listener for full screen change
+document.addEventListener('fullscreenchange', fullScreenChangeHandler);
+document.addEventListener('webkitfullscreenchange', fullScreenChangeHandler);
+document.addEventListener('msfullscreenchange', fullScreenChangeHandler);
+
+// Event listener to toggle full screen on double click
+document.addEventListener('dblclick', () => {
+    toggleFullScreen();
+});
 
 // Resize event listener
 window.addEventListener('resize', () => {
