@@ -1,7 +1,7 @@
 {
   "name": "isrotracker",
   "version": "1.0.0",
-  "description": "Tracking ISRO Satellites in Real Time.",
+  "description": "Tracking Indian Satellites in Real Time.",
   "main": "client.js",
   "scripts": {
     "start": "node app.js",
