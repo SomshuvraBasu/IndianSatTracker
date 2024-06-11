@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fs": "^0.0.1-security",
+    "satellite.js": "^5.0.0",
     "three": "^0.162.0"
   }
 }
